@@ -3,7 +3,7 @@ const ShowAssets = (control, assetKit) => {
   // console.log(control);
 
   function getRandomWaypoint(control) {
-    const waypoints = control.currentMap.waypoints.getAll();
+    const waypoints = control.activeVenue.maps.getAllWaypoints();
     return waypoints[Math.floor(Math.random() * waypoints.length)];
   }
 
@@ -35,7 +35,7 @@ const ShowAssets = (control, assetKit) => {
         confidenceColor: colors[type],
       }));
       const configs = [];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 50; i++) {
         const wp = getRandomWaypoint(control);
         const assetConfig = {
           position: wp.coordinates,
@@ -43,6 +43,7 @@ const ShowAssets = (control, assetKit) => {
           confidenceMax: 30,
           pulseVisible: true,
           width: 12,
+          mapId: wp.mapId,
           id: i,
           name: "Asset " + i,
           description: "Random Description for Asset " + i,
@@ -59,8 +60,17 @@ const ShowAssets = (control, assetKit) => {
         configs.push(assetConfig);
       }
       localStorage.setItem("assetConfig", JSON.stringify(configs));
-      console.log(configs);
-      assetKit.createAsset(configs);
+      const filteredConfigs = [];
+      configs.forEach((config) => {
+        if (config.mapId === control.currentMap.id) {
+          console.log("ASSET FOUND IN CURRENT FLOOR, DRAWING");
+          filteredConfigs.push(config);
+        } else {
+          console.log("ASSET FOUND IN DIFFERENT FLOOR, NOT DRAWING");
+        }
+      });
+      console.log(filteredConfigs);
+      assetKit.createAsset(filteredConfigs);
     } catch (error) {
       console.log(
         "An attempt to create asset config has failed, more details below, please wait"

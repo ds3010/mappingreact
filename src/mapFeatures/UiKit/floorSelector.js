@@ -7,7 +7,6 @@ const floorSelector = (control) => {
     });
     uiKit.renderFloorSelector();
   } catch (error) {
-    console.log("Something bad happened");
     console.log(error);
   }
 };

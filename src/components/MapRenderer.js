@@ -12,18 +12,19 @@ import jmapAssetKit from "@jibestream-dev/jmap-asset-kit";
 const MapRenderer = (props) => {
   const [controllerObj, setControllerObj] = useState(null);
   const [assetKitObj, setAssetKit] = useState(null);
+
   // //INITIALIZING USING JMAP.INIT
   // useEffect(() => {
-  //   console.log("reloading map");
+  //   console.log("INITIALIZING MAP");
   //   const jibestream = jmap.init(props.config);
 
   //   jmap.dispatcher.subscribe("ready", () => {
   //     // Scale map out
-  //     console.log("INITIALIZING MAP");
   //     jibestream.control.setMapTransform(new jmap.Transform({ scale: 0.3 }));
   //     const control = jibestream.control;
   //     const assetKit = new jmapAssetKit(control);
   //     console.log("CONTROLLER CHANGED, RELOADING!");
+  //     console.log(control);
   //     setControllerObj(control);
 
   //     console.log("ASSETKIT CHANGED, RELOADING!");
@@ -55,7 +56,6 @@ const MapRenderer = (props) => {
         console.log("ASSETKIT CHANGED, RELOADING!");
         setAssetKit(assetKit);
 
-        //FloorSelector NOT WORKING WITH JCORE FOR SOME REASON
         //floorSelector(control);
 
         // This targets '<div class="map"></div>' in the DOM
@@ -65,10 +65,6 @@ const MapRenderer = (props) => {
       });
     });
   }, [props.config]);
-
-  useEffect(() => {
-    showAssets(controllerObj, assetKitObj);
-  }, [controllerObj, assetKitObj]);
 
   const resetAssetHandler = () => {
     showAssets(controllerObj, assetKitObj);
@@ -93,7 +89,7 @@ const MapRenderer = (props) => {
   // );
   return (
     <>
-      <button onClick={resetAssetHandler}>Reset Assets</button>
+      <button onClick={resetAssetHandler}>Show Assets</button>
       <div className={classes.mainScreenDiv}>
         {controllerObj && <MapInfoDisplay control={controllerObj} />}
         <div className={classes.rendererDiv}>
