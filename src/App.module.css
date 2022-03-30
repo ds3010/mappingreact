@@ -1,0 +1,12 @@
+.mainDiv {
+  position: relative;
+  background-color: lightgray;
+  height: inherit;
+  width: inherit;
+}
+
+.mainDiv.mainScreenDiv {
+  position: relative;
+  height: 85%;
+  width: 100%;
+}

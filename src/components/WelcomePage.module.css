@@ -1,0 +1,18 @@
+.welcomeMain {
+  position: relative;
+}
+
+.imgClass {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.welcomeMsg {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  font-family: "Gill Sans";
+}

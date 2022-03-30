@@ -1,0 +1,14 @@
+.mainScreenDiv {
+  position: relative;
+  height: 100%;
+}
+
+.rendererDiv {
+  position: relative;
+  height: 100%;
+}
+
+#mapDiv {
+  position: relative;
+  height: 820px;
+}

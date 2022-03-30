@@ -1,0 +1,6 @@
+.infoDisplayDiv {
+  position: absolute;
+  height: 5%;
+  left: 10px;
+  z-index: 9;
+}
