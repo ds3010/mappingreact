@@ -47,7 +47,6 @@ const MapRenderer = (props) => {
 
         // Make a view controller
         const control = new jmap.JController({ activeVenue });
-        console.log(activeVenue);
         const assetKit = new jmapAssetKit(control);
 
         console.log("CONTROLLER CHANGED, RELOADING!");
