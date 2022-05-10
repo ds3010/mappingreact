@@ -35,7 +35,7 @@ const ShowAssets = (control, assetKit) => {
         confidenceColor: colors[type],
       }));
       const configs = [];
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0; i < 20; i++) {
         const wp = getRandomWaypoint(control);
         const assetConfig = {
           position: wp.coordinates,
@@ -60,17 +60,19 @@ const ShowAssets = (control, assetKit) => {
         configs.push(assetConfig);
       }
       localStorage.setItem("assetConfig", JSON.stringify(configs));
-      const filteredConfigs = [];
-      configs.forEach((config) => {
-        if (config.mapId === control.currentMap.id) {
-          console.log("ASSET FOUND IN CURRENT FLOOR, DRAWING");
-          filteredConfigs.push(config);
-        } else {
-          console.log("ASSET FOUND IN DIFFERENT FLOOR, NOT DRAWING");
-        }
-      });
-      console.log(filteredConfigs);
-      assetKit.createAsset(filteredConfigs);
+      // const filteredConfigs = [];
+      // configs.forEach((config) => {
+      //   if (config.mapId === control.currentMap.id) {
+      //     console.log("ASSET FOUND IN CURRENT FLOOR, DRAWING");
+      //     filteredConfigs.push(config);
+      //   } else {
+      //     console.log("ASSET FOUND IN DIFFERENT FLOOR, NOT DRAWING");
+      //   }
+      // });
+      // //console.log(filteredConfigs);
+      // assetKit.createAsset(filteredConfigs);
+      assetKit.createAsset(configs);
+      //return configs;
     } catch (error) {
       console.log(
         "An attempt to create asset config has failed, more details below, please wait"

@@ -12,3 +12,18 @@
   position: relative;
   height: 820px;
 }
+
+.inline {
+  display: inline;
+}
+
+.filterButton {
+  display: block;
+  background-color: darkred;
+  color: white;
+}
+
+.selected {
+  background-color: blue;
+  color: white;
+}

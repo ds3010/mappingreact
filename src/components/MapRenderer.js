@@ -8,10 +8,12 @@ import floorSelector from "../mapFeatures/UiKit/floorSelector";
 import showAssets from "../mapFeatures/AssetKit/ShowAssets";
 import jmapAssetKit from "@jibestream-dev/jmap-asset-kit";
 //import MapUIKit from "@jibestream-dev/jmap-mapui-kit";
+import removeAssets from "../mapFeatures/AssetKit/RemoveAssets";
 
 const MapRenderer = (props) => {
   const [controllerObj, setControllerObj] = useState(null);
   const [assetKitObj, setAssetKit] = useState(null);
+  const [assetConfig, setAssetConfig] = useState(null);
 
   // //INITIALIZING USING JMAP.INIT
   // useEffect(() => {
@@ -68,6 +70,30 @@ const MapRenderer = (props) => {
 
   const resetAssetHandler = () => {
     showAssets(controllerObj, assetKitObj);
+    setAssetConfig(JSON.parse(localStorage.getItem("assetConfig")));
+    localStorage.setItem("selectedItems", JSON.stringify([]));
+  };
+
+  const filteringOutAnAsset = (e) => {
+    e.target.className = classes.selected;
+    let oldSelectedItems = JSON.parse(localStorage.getItem("selectedItems"));
+    if (oldSelectedItems === null) oldSelectedItems = [];
+    //console.log(oldSelectedItems);
+    oldSelectedItems.push(e.target.id);
+    localStorage.setItem("selectedItems", JSON.stringify(oldSelectedItems));
+  };
+
+  const filterAssets = () => {
+    let assetsToFilter = JSON.parse(localStorage.getItem("selectedItems"));
+    let config = JSON.parse(localStorage.getItem("assetConfig"));
+
+    assetsToFilter.forEach((assetOut) => {
+      config = config.filter((asset) => asset.id.toString() != assetOut);
+    });
+    localStorage.setItem("selectedItems", JSON.stringify([]));
+    localStorage.setItem("assetConfig", JSON.stringify(config));
+    setAssetConfig(config);
+    removeAssets(assetKitObj, assetsToFilter);
   };
 
   window.onerror = function (message) {
@@ -90,6 +116,26 @@ const MapRenderer = (props) => {
   return (
     <>
       <button onClick={resetAssetHandler}>Show Assets</button>
+      {assetConfig && (
+        <h4>Click on an asset below if you want to filter it out</h4>
+      )}
+      {assetConfig && (
+        <div>
+          {assetConfig.map((asset) => (
+            <button
+              onClick={filteringOutAnAsset}
+              className={classes.inline}
+              key={asset.id}
+              id={asset.id}
+            >
+              {asset.name}
+            </button>
+          ))}
+          <button onClick={filterAssets} className={classes.filterButton}>
+            Filter Assets
+          </button>
+        </div>
+      )}
       <div className={classes.mainScreenDiv}>
         {controllerObj && <MapInfoDisplay control={controllerObj} />}
         <div className={classes.rendererDiv}>
