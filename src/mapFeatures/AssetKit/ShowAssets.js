@@ -40,13 +40,14 @@ const ShowAssets = (control, assetKit) => {
         const assetConfig = {
           position: wp.coordinates,
           waypoint: wp,
-          confidenceMax: 30,
-          pulseVisible: true,
-          width: 12,
+          // confidenceMax: 30,
+          pulseVisible: false,
+          // width: 12,
           mapId: wp.mapId,
           id: i,
           name: "Asset " + i,
           description: "Random Description for Asset " + i,
+          url: 'https://thumbs.dreamstime.com/z/location-pin-icon-transparent-location-pin-sign-flat-style-red-location-pin-symbol-map-pointer-symbol-map-pin-sign-location-pin-117283757.jpg?w=768'
         };
         let colorConfig;
         if (i % 3 === 0) {
@@ -72,6 +73,10 @@ const ShowAssets = (control, assetKit) => {
       // //console.log(filteredConfigs);
       // assetKit.createAsset(filteredConfigs);
       assetKit.createAsset(configs);
+      setTimeout(() =>{
+        console.log('Rendering Current Map View')
+        control.renderCurrentMapView()
+      },1000)
       //return configs;
     } catch (error) {
       console.log(
